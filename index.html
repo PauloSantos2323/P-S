@@ -2,7 +2,7 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
     <title>P&amp;S Engenharia e Consultoria</title>
     <meta
       name="description"
@@ -246,7 +246,7 @@
             </p>
           </div>
 
-          <form class="contact-form" action="#" method="post">
+          <form class="contact-form" method="post" novalidate>
             <div class="form-row">
               <div class="form-group">
                 <label for="nome">Nome</label>
@@ -611,22 +611,51 @@
         form.addEventListener("submit", function(e) {
           e.preventDefault();
           
+          // Limpar erros anteriores
+          inputs.forEach(input => {
+            input.classList.remove("error");
+            input.setCustomValidity("");
+          });
+          
           // Validar todos os campos
           let isValid = true;
+          const firstErrorInput = [];
+          
           inputs.forEach(input => {
             if (input.hasAttribute("required") && input.value.trim() === "") {
               input.classList.add("error");
+              input.setCustomValidity("Este campo é obrigatório");
+              if (firstErrorInput.length === 0) {
+                firstErrorInput.push(input);
+              }
+              isValid = false;
+            } else if (input.type === "email" && input.value.trim() !== "") {
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              if (!emailRegex.test(input.value)) {
+                input.classList.add("error");
+                input.setCustomValidity("Por favor, insira um e-mail válido");
+                if (firstErrorInput.length === 0) {
+                  firstErrorInput.push(input);
+                }
+                isValid = false;
+              }
+            } else if (input.id === "nome" && input.value.trim().length > 0 && input.value.trim().length < 3) {
+              input.classList.add("error");
+              input.setCustomValidity("O nome deve ter pelo menos 3 caracteres");
+              if (firstErrorInput.length === 0) {
+                firstErrorInput.push(input);
+              }
               isValid = false;
             }
           });
 
           if (!isValid) {
             // Scroll para o primeiro erro
-            const firstError = form.querySelector(".error");
-            if (firstError) {
-              firstError.scrollIntoView({ behavior: "smooth", block: "center" });
-              firstError.focus();
+            if (firstErrorInput[0]) {
+              firstErrorInput[0].scrollIntoView({ behavior: "smooth", block: "center" });
+              setTimeout(() => firstErrorInput[0].focus(), 300);
             }
+            showNotification("Por favor, preencha todos os campos obrigatórios corretamente.", "error");
             return;
           }
 
@@ -752,9 +781,8 @@
 
         function tryNext() {
           if (currentIndex >= logoVariations.length) {
-            console.warn("⚠️ Logo não encontrada. Verifique se o arquivo está na raiz do projeto.");
-            // Mostrar placeholder ou texto alternativo
-            imgElement.style.display = "none";
+            // Logo não encontrada - manter src original
+            imgElement.style.opacity = "1";
             return;
           }
 
@@ -762,7 +790,6 @@
           testImg.onload = () => {
             imgElement.src = logoVariations[currentIndex];
             imgElement.style.opacity = "1";
-            console.log(`✅ Logo carregada: ${logoVariations[currentIndex]}`);
           };
           testImg.onerror = () => {
             currentIndex++;
@@ -778,11 +805,23 @@
       }
 
       // Carregar todas as logos quando a página carregar
-      window.addEventListener("DOMContentLoaded", () => {
+      function initLogos() {
         document.querySelectorAll('.brand-logo, .hero-logo-wrapper img').forEach(img => {
-          loadLogo(img);
+          if (img.src && !img.complete) {
+            loadLogo(img);
+          } else if (img.complete && img.naturalWidth === 0) {
+            // Imagem falhou ao carregar
+            loadLogo(img);
+          }
         });
-      });
+      }
+
+      // Tentar carregar imediatamente se DOM já está pronto
+      if (document.readyState === 'loading') {
+        document.addEventListener("DOMContentLoaded", initLogos);
+      } else {
+        initLogos();
+      }
 
       // Preload de recursos críticos
       if (document.querySelector('link[rel="preload"]') === null) {
@@ -817,10 +856,11 @@
       }
 
       // ============================================
-      // LOG DE CARREGAMENTO (para debug)
+      // INICIALIZAÇÃO COMPLETA
       // ============================================
       
       window.addEventListener("load", () => {
-        console.log("✅ P&S Engenharia - Página carregada com sucesso!");
+        // Página carregada com sucesso
+        document.documentElement.classList.add("loaded");
       });
     </script>

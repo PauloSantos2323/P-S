@@ -22,6 +22,9 @@ body {
   background: #ffffff;
   line-height: 1.6;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 img {
@@ -39,6 +42,12 @@ a {
   max-width: 1120px;
   margin: 0 auto;
   padding: 0 1.5rem;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
 }
 
 .topbar {
@@ -79,6 +88,14 @@ a {
   width: 40px;
   height: 40px;
   object-fit: contain;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .brand-logo {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 .brand-text {
@@ -96,6 +113,17 @@ a {
 .brand-subtitle {
   font-size: 0.7rem;
   color: #64748b;
+}
+
+@media (max-width: 480px) {
+  .brand-name {
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+  }
+  
+  .brand-subtitle {
+    font-size: 0.65rem;
+  }
 }
 
 .nav {
@@ -146,12 +174,24 @@ a {
   gap: 0.3rem;
   width: 46px;
   height: 46px;
+  min-width: 46px;
+  min-height: 46px;
   border-radius: 999px;
   border: 1px solid rgba(15, 118, 110, 0.35);
   background: #ffffff;
   cursor: pointer;
   padding: 0.65rem;
   transition: transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 480px) {
+  .nav-toggle {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
 }
 
 .nav-toggle span {
@@ -167,10 +207,6 @@ a {
   outline-offset: 3px;
 }
 
-.nav-toggle[aria-expanded="true"] {
-  transform: rotate(3deg);
-}
-
 .hero,
 .section {
   scroll-margin-top: 90px;
@@ -178,6 +214,18 @@ a {
 
 .hero {
   padding: 3.5rem 0 3rem;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 0 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 1.5rem 0 2rem;
+  }
 }
 
 .hero-grid {
@@ -196,10 +244,26 @@ a {
   letter-spacing: -0.02em;
 }
 
+@media (max-width: 480px) {
+  .hero-text h1 {
+    font-size: clamp(1.5rem, 6vw, 1.9rem);
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+  }
+}
+
 .hero-text p {
   font-size: 0.98rem;
   color: #475569;
   margin-bottom: 1.5rem;
+}
+
+@media (max-width: 480px) {
+  .hero-text p {
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+  }
 }
 
 .hero-actions {
@@ -220,6 +284,18 @@ a {
   cursor: pointer;
   border: none;
   transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  min-height: 44px; /* Touch target mínimo */
+}
+
+@media (max-width: 480px) {
+  .btn {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.85rem;
+    width: 100%;
+    min-height: 48px;
+  }
 }
 
 .btn-primary {
@@ -282,6 +358,15 @@ a {
   border-left: 3px solid #0f766e;
 }
 
+@media (max-width: 480px) {
+  .hero-highlight {
+    font-size: 0.75rem;
+    padding: 0.65rem 0.8rem;
+    max-width: 100%;
+    gap: 0.5rem;
+  }
+}
+
 .hero-highlight .dot {
   width: 10px;
   height: 10px;
@@ -310,6 +395,14 @@ a {
   padding: 0.75rem;
 }
 
+@media (max-width: 480px) {
+  .hero-logo-wrapper {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 0.75rem;
+  }
+}
+
 .hero-logo-wrapper img {
   width: 100%;
   height: 100%;
@@ -336,6 +429,22 @@ a {
   margin-bottom: 0.9rem;
 }
 
+@media (max-width: 480px) {
+  .hero-card-text h2 {
+    font-size: 0.95rem;
+  }
+  
+  .hero-card-text p {
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .hero-card-text ul {
+    font-size: 0.75rem;
+    gap: 0.35rem;
+  }
+}
+
 .hero-card-text ul {
   list-style: none;
   font-size: 0.82rem;
@@ -353,6 +462,18 @@ a {
 .section {
   padding: 4rem 0;
   position: relative;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 3rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 2.5rem 0;
+  }
 }
 
 .section::before {
@@ -379,6 +500,14 @@ a {
   letter-spacing: -0.02em;
   position: relative;
   display: inline-block;
+}
+
+@media (max-width: 480px) {
+  .section h2 {
+    font-size: clamp(1.3rem, 5vw, 1.6rem);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
 }
 
 .section h2::after {
@@ -427,6 +556,13 @@ a {
   padding: 1.1rem 1.1rem;
   border: 1px solid rgba(148, 163, 184, 0.4);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 1rem;
+    border-radius: 0.65rem;
+  }
 }
 
 .card:hover {
@@ -480,6 +616,13 @@ a {
   border: 1px solid rgba(148, 163, 184, 0.4);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   position: relative;
+}
+
+@media (max-width: 480px) {
+  .step {
+    padding: 1rem 0.9rem;
+    border-radius: 0.65rem;
+  }
 }
 
 .step::before {
@@ -576,6 +719,13 @@ a {
   border: 1px solid rgba(148, 163, 184, 0.45);
 }
 
+@media (max-width: 480px) {
+  .contact-form {
+    padding: 1.25rem 1rem;
+    border-radius: 0.75rem;
+  }
+}
+
 .form-row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -606,6 +756,21 @@ a {
   transition: border-color 0.15s ease, box-shadow 0.15s ease,
     background-color 0.15s ease;
   background: #f9fafb;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+@media (max-width: 480px) {
+  .form-group input,
+  .form-group textarea {
+    padding: 0.75rem 0.85rem;
+    font-size: 16px; /* Previne zoom no iOS */
+    min-height: 44px; /* Touch target */
+  }
+  
+  .form-group textarea {
+    min-height: 120px;
+  }
 }
 
 .form-group input:focus,
@@ -684,6 +849,16 @@ a {
 
 .hero-logo-card {
   animation: fadeInRight 0.8s ease 0.2s both;
+}
+
+@media (max-width: 768px) {
+  .hero-text {
+    animation: fadeInUp 0.6s ease;
+  }
+  
+  .hero-logo-card {
+    animation: fadeInUp 0.6s ease 0.1s both;
+  }
 }
 
 @keyframes fadeInUp {
@@ -820,72 +995,102 @@ a {
 
 @media (max-width: 768px) {
   .topbar-content {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.75rem 0;
   }
 
   .nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
     width: 100%;
+    background: #ffffff;
     justify-content: flex-start;
     flex-direction: column;
     align-items: flex-start;
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    padding-top: 0;
+    padding: 0;
     border-top: 1px solid transparent;
+    box-shadow: 0 4px 6px rgba(15, 23, 42, 0.1);
+    transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
   }
 
   .nav.nav-open {
-    max-height: 320px;
+    max-height: 400px;
     opacity: 1;
-    margin-top: 0.5rem;
-    padding-top: 0.75rem;
+    padding: 1rem 1.5rem;
     border-top-color: rgba(15, 23, 42, 0.08);
   }
 
   .nav a {
     width: 100%;
-    padding: 0.4rem 0;
+    padding: 0.75rem 0;
+    font-size: 0.95rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav-cta {
+    margin-top: 0.5rem;
+    padding: 0.6rem 1rem;
+    text-align: center;
+    justify-content: center;
   }
 
   .hero {
-    padding-top: 2.3rem;
+    padding-top: 1.5rem;
   }
 
   .hero-grid {
     grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
   .hero-logo-card {
     order: -1;
+    text-align: center;
   }
 
   .cards-3 {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
 
   .steps {
     grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .section-intro {
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 560px) {
   .hero-text h1 {
-    font-size: 1.6rem;
+    font-size: clamp(1.5rem, 6vw, 1.8rem);
   }
 
   .hero-actions {
     flex-direction: column;
     align-items: stretch;
+    gap: 0.75rem;
   }
 
   .steps {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .form-row {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
 
   .nav-toggle {
@@ -900,6 +1105,98 @@ a {
   .fade-in {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  .section-grid {
+    gap: 2rem;
+  }
+
+  .contact-grid {
+    gap: 2rem;
+  }
+
+  .contact-list {
+    font-size: 0.85rem;
+  }
+
+  .contact-list strong {
+    min-width: 90px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar-content {
+    padding: 0.65rem 0;
+  }
+
+  .brand {
+    gap: 0.6rem;
+  }
+
+  .hero-grid {
+    gap: 1.5rem;
+  }
+
+  .hero-actions {
+    gap: 0.65rem;
+  }
+
+  .section-grid {
+    gap: 1.5rem;
+  }
+
+  .cards {
+    gap: 1rem;
+  }
+
+  .cards-3 {
+    gap: 1rem;
+  }
+
+  .steps {
+    gap: 0.9rem;
+  }
+
+  .step-number {
+    width: 24px;
+    height: 24px;
+    font-size: 0.75rem;
+  }
+
+  .step h3 {
+    font-size: 0.9rem;
+  }
+
+  .step p {
+    font-size: 0.8rem;
+  }
+
+  .contact-grid {
+    gap: 1.5rem;
+  }
+
+  .contact-list li {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .contact-list strong {
+    min-width: auto;
+    width: 100%;
+    margin-bottom: 0.15rem;
+  }
+
+  .footer {
+    padding: 1rem 0 1.25rem;
+  }
+
+  .footer p {
+    font-size: 0.75rem;
+  }
+
+  .footer-small {
+    font-size: 0.7rem;
   }
 }
 
@@ -992,6 +1289,20 @@ a {
   }
 }
 
+@media (max-width: 480px) {
+  .back-to-top {
+    bottom: 1.25rem;
+    right: 1.25rem;
+    width: 44px;
+    height: 44px;
+  }
+  
+  .back-to-top svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
 /* ============================================
    MENU ATIVO
    ============================================ */
@@ -1054,10 +1365,106 @@ a {
     left: 1rem;
     max-width: none;
     transform: translateY(-100px);
+    top: 80px;
+    padding: 0.9rem 1.25rem;
+    font-size: 0.9rem;
   }
   
   .notification.show {
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .notification {
+    right: 0.75rem;
+    left: 0.75rem;
+    top: 70px;
+    padding: 0.85rem 1rem;
+    font-size: 0.85rem;
+    border-radius: 0.65rem;
+  }
+}
+
+/* ============================================
+   MELHORIAS GLOBAIS PARA MOBILE
+   ============================================ */
+
+/* Prevenir seleção de texto acidental em mobile */
+@media (max-width: 768px) {
+  .btn,
+  .nav a,
+  .nav-toggle {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+}
+
+/* Melhorar scroll em iOS */
+@media (max-width: 768px) {
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Ajustes de espaçamento para telas muito pequenas */
+@media (max-width: 360px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+  
+  .hero-text h1 {
+    font-size: 1.4rem;
+  }
+  
+  .section h2 {
+    font-size: 1.25rem;
+  }
+  
+  .btn {
+    font-size: 0.8rem;
+    padding: 0.7rem 1rem;
+  }
+  
+  .card,
+  .step {
+    padding: 0.9rem 0.8rem;
+  }
+}
+
+/* Melhorias de acessibilidade touch */
+@media (hover: none) and (pointer: coarse) {
+  .card:hover,
+  .step:hover {
+    transform: none;
+  }
+  
+  .btn-primary:hover {
+    transform: none;
+  }
+  
+  .btn-outline:hover {
+    transform: none;
+  }
+  
+  .back-to-top:hover {
+    transform: none;
+  }
+}
+
+/* Landscape mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero {
+    padding: 1.5rem 0 2rem;
+  }
+  
+  .section {
+    padding: 2rem 0;
+  }
+  
+  .topbar-content {
+    padding: 0.5rem 0;
   }
 }
 
