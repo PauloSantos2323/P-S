@@ -20,7 +20,7 @@
     <header class="topbar">
       <div class="container topbar-content">
         <div class="brand">
-          <img src="Logo.png" alt="Logo P&amp;S Engenharia e Consultoria" class="brand-logo" />
+          <img src="/Logo.PNG" alt="Logo P&amp;S Engenharia e Consultoria" class="brand-logo" />
           <div class="brand-text">
             <span class="brand-name">P&amp;S</span>
             <span class="brand-subtitle">Engenharia e Consultoria</span>
@@ -68,7 +68,7 @@
           </div>
           <div class="hero-logo-card">
             <div class="hero-logo-wrapper">
-              <img src="Logo.png" alt="Logo P&amp;S Engenharia e Consultoria" />
+              <img src="/Logo.PNG" alt="Logo P&amp;S Engenharia e Consultoria" />
             </div>
             <div class="hero-card-text">
               <h2>Paulo de Oliveira Silva</h2>
@@ -731,11 +731,64 @@
       // MELHORIAS DE PERFORMANCE
       // ============================================
       
+      // ============================================
+      // CARREGAMENTO INTELIGENTE DA LOGO
+      // ============================================
+      
+      function loadLogo(imgElement) {
+        // Lista de possíveis variações do nome do arquivo
+        const logoVariations = [
+          "/Logo.PNG",
+          "/Logo.png",
+          "/logo.PNG",
+          "/logo.png",
+          "./Logo.PNG",
+          "./Logo.png",
+          "Logo.PNG",
+          "Logo.png"
+        ];
+
+        let currentIndex = 0;
+
+        function tryNext() {
+          if (currentIndex >= logoVariations.length) {
+            console.warn("⚠️ Logo não encontrada. Verifique se o arquivo está na raiz do projeto.");
+            // Mostrar placeholder ou texto alternativo
+            imgElement.style.display = "none";
+            return;
+          }
+
+          const testImg = new Image();
+          testImg.onload = () => {
+            imgElement.src = logoVariations[currentIndex];
+            imgElement.style.opacity = "1";
+            console.log(`✅ Logo carregada: ${logoVariations[currentIndex]}`);
+          };
+          testImg.onerror = () => {
+            currentIndex++;
+            tryNext();
+          };
+          testImg.src = logoVariations[currentIndex];
+        }
+
+        // Tentar carregar
+        imgElement.style.opacity = "0";
+        imgElement.style.transition = "opacity 0.3s ease";
+        tryNext();
+      }
+
+      // Carregar todas as logos quando a página carregar
+      window.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll('.brand-logo, .hero-logo-wrapper img').forEach(img => {
+          loadLogo(img);
+        });
+      });
+
       // Preload de recursos críticos
       if (document.querySelector('link[rel="preload"]') === null) {
         const preloadLink = document.createElement("link");
         preloadLink.rel = "preload";
-        preloadLink.href = "Logo.png";
+        preloadLink.href = "/Logo.PNG";
         preloadLink.as = "image";
         document.head.appendChild(preloadLink);
       }
